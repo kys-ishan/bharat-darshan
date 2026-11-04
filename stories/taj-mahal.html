@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Taj Mahal in 360° — Bharat Darshan</title>
+<meta name="description" content="Walk around the Taj Mahal in 360°, follow its five-stage story, and read a Mughal calligraphy page in the Manuscript Lens." />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#123A2E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+
+<!-- Pannellum (360° viewer) is vendored locally — no CDN at runtime. -->
+<link rel="stylesheet" href="../vendor/pannellum.css?v=20261102n" />
+<link rel="stylesheet" href="../css/base.css?v=20261102n" />
+<link rel="stylesheet" href="../css/pages.css?v=20261102n" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../css/theme.css?v=20261103" />
+<link rel="stylesheet" href="../css/enhancements.css?v=20261104" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 30 34" aria-hidden="true" focusable="false">
+        <path d="M15 1.5c-6.6 0-12 5.2-12 11.7 0 8.4 12 19.3 12 19.3s12-10.9 12-19.3C27 6.7 21.6 1.5 15 1.5Z"
+              fill="none" stroke="#123A2E" stroke-width="2"/>
+        <path d="M9.5 15.5v-2.2a5.5 5.5 0 0 1 11 0v2.2" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <path d="M11.5 15.5h7v4h-7z" fill="#C9A227"/>
+      </svg>
+      <span>
+        <span class="brand-name">Bharat Darshan</span><br />
+        <span class="brand-sub">Heritage Atlas India</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks"
+            data-i18n="nav.menu">Menu</button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="../index.html" data-i18n="nav.map">Explore Map</a>
+      <a href="../archive.html" data-i18n="nav.archive">Living Archive</a>
+      <a href="index.html" data-i18n="nav.stories">Heritage Stories</a>
+      <a href="../journey.html" data-i18n="nav.journey">My Journey</a>
+      <a href="../about.html" data-i18n="nav.about">About</a>
+      <button class="pill" id="langToggle" aria-pressed="false">हिन्दी</button>
+      <button class="pill" id="a11yToggle" aria-expanded="false" aria-controls="a11yPanel"
+              data-i18n="nav.a11y">Accessibility</button>
+    </nav>
+  </div>
+
+  <div class="a11y-panel" id="a11yPanel" hidden role="group" aria-label="Accessibility options">
+    <h4>Display</h4>
+    <label><input type="checkbox" id="optContrast" /> High contrast</label>
+    <label><input type="checkbox" id="optText" /> Larger text</label>
+    <label><input type="checkbox" id="optMotion" /> Reduced motion</label>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= IMMERSIVE HERO ================= -->
+  <section class="mon-hero">
+    <img id="heroImg" alt="" />
+    <div class="wrap">
+      <p class="crumbs"><a href="../index.html" data-i18n="nav.map">Explore Map</a> / <span>Taj Mahal</span></p>
+      <span class="kicker" data-i18n="taj.kicker">Immersive heritage story · 360°</span>
+      <h1>Taj Mahal</h1>
+      <div class="loc" id="siteLoc"></div>
+      <div class="meta-row" id="siteTags"></div>
+      <div class="hero-actions-row">
+        <a class="btn btn-primary" href="#panoSection" data-i18n="taj.start">Start the 360° tour</a>
+        <a class="btn btn-ghost" href="../monument.html?id=taj-mahal" data-i18n="taj.detail"
+           style="color:var(--parchment);border-color:rgba(244,235,217,.5)">Full detail page</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= POETIC INTRO ================= -->
+  <section class="block" aria-labelledby="introHead">
+    <div class="wrap">
+      <div class="prose" style="max-width:720px">
+        <span class="kicker">Agra, Uttar Pradesh · 1632–1653</span>
+        <h2 id="introHead">Marble, light and geometry</h2>
+        <p>
+          The Taj Mahal is not one building. It is a composition: a domed mausoleum, a mosque,
+          a guest house, four minarets and a long garden, all set on a raised platform beside
+          the Yamuna. Every axis is deliberate — the pool down the middle doubles the dome,
+          and the four minarets lean very slightly outward so they fall away from the roof if
+          they ever fall.
+        </p>
+        <p>
+          Drag the panorama below to look around the terrace. Five marked points explain what
+          you are seeing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 360° TOUR ================= -->
+  <section class="block alt" id="panoSection" aria-labelledby="panoHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Heritage tour</span>
+        <h2 id="panoHead">Walk around the terrace</h2>
+        <p>Drag to look around, scroll to zoom, or use the arrow keys. The five buttons below
+           work without dragging — every hotspot is reachable from the keyboard.</p>
+      </div>
+
+      <div class="pano-shell">
+        <div id="pano" role="application"
+             aria-label="360 degree panorama of the Taj Mahal terrace"></div>
+        <!-- Shown only if Pannellum or the panorama file fails to load. -->
+        <div class="pano-fallback" id="panoFallback" hidden>
+          <div style="font-size:2rem">🛰️</div>
+          <b>360° viewer unavailable</b>
+          <p style="max-width:440px;margin:0 auto;font-size:.94rem">
+            The panorama is a local file at <code>assets/360/taj-mahal.jpg</code> and the
+            viewer is bundled at <code>vendor/pannellum.js</code>. If either is missing,
+            restore it from the repository — no internet connection is required.
+          </p>
+        </div>
+      </div>
+      <p class="pano-caption">
+        360° photograph by Arul Prakasam T · CC BY-SA 4.0 · Wikimedia Commons.
+        The viewpoint is the terrace in front of the mausoleum.
+      </p>
+
+      <div class="hotspot-list" id="hotspotList"></div>
+    </div>
+  </section>
+
+  <!-- ================= HERITAGE STORY MODE ================= -->
+  <section class="block" aria-labelledby="storyHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Heritage Story Mode</span>
+        <h2 id="storyHead">Five stages, one monument</h2>
+        <p>Why it was built, who built it, what to notice, how it changed, why it matters.</p>
+      </div>
+      <div class="story">
+        <div class="story-rail" id="storyRail" tabindex="0"
+             aria-label="Heritage story stages, use left and right arrow keys"></div>
+        <div class="story-nav">
+          <button class="btn btn-ghost btn-sm" id="storyPrev" data-i18n="story.prev"
+                  aria-label="Previous stage">← Prev</button>
+          <div class="story-dots" id="storyDots" aria-hidden="true"></div>
+          <button class="btn btn-ghost btn-sm" id="storyNext" data-i18n="story.next"
+                  aria-label="Next stage">Next →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LISTEN ================= -->
+  <section class="block alt" aria-labelledby="listenHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Audio</span>
+        <h2 id="listenHead">Listen to the story</h2>
+      </div>
+      <div class="listen">
+        <span class="lbl" data-i18n="listen.label">Listen to history</span>
+        <button class="btn btn-ghost btn-sm" id="playBtn">▶ Play</button>
+        <button class="btn btn-ghost btn-sm" id="pauseBtn" disabled>⏸ Pause</button>
+        <button class="btn btn-ghost btn-sm" id="resumeBtn" disabled>⏵ Resume</button>
+        <button class="btn btn-ghost btn-sm" id="stopBtn" disabled>■ Stop</button>
+        <span class="hint" id="listenHint"></span>
+      </div>
+      <p class="muted">
+        This uses your device's built-in voice. It is not a recorded narration and it needs
+        no download. The full text stays on screen either way.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= MANUSCRIPT LENS ================= -->
+  <section class="block" id="msSection" aria-labelledby="msHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Manuscript interpretation demo</span>
+        <h2 id="msHead">Manuscript Lens</h2>
+        <p>
+          A real Mughal calligraphy page, with regions you can inspect. Select a highlighted
+          area to see a zoomed crop and what we can and cannot say about it.
+        </p>
+      </div>
+
+      <div class="manuscript">
+        <div class="ms-frame" id="msFrame">
+          <img id="msImg" alt="A Mughal calligraphy page: four lines of Persian script in black and gold on cream paper, within a gold-ruled border." />
+          <button class="ms-hot" data-region="0" aria-pressed="false"
+                  aria-label="Inspect the central text block"></button>
+          <button class="ms-hot" data-region="1" aria-pressed="false"
+                  aria-label="Inspect the gold border"></button>
+          <button class="ms-hot" data-region="2" aria-pressed="false"
+                  aria-label="Inspect the lower margin"></button>
+        </div>
+
+        <div class="ms-panel" id="msPanel">
+          <span class="kicker">Selected region</span>
+          <h3 id="msTitle">Select a highlighted area</h3>
+          <p id="msDesc" style="font-size:.95rem;color:#3D5248">
+            Three regions are marked on the page. Each one opens a zoomed crop and a note.
+          </p>
+          <div id="msMeta"></div>
+          <p class="ms-note" id="msNote"></p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:22px">
+        <b>Honesty note.</b> This page shows a real object with real museum metadata, but we
+        have <b>not transcribed the Persian text</b>. Reading nasta'liq calligraphy needs a
+        specialist, and inventing a transcription would be a false claim. The transcription
+        field is therefore marked <b>TODO</b> rather than filled with guesses.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK FACTS ================= -->
+  <section class="facts-strip" aria-labelledby="factsHead">
+    <div class="wrap">
+      <h2 id="factsHead" class="visually-hidden">Quick facts</h2>
+      <dl class="facts-grid" id="factsGrid"></dl>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="block alt" aria-labelledby="quizHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Test yourself</span>
+        <h2 id="quizHead">A few questions</h2>
+      </div>
+      <div class="quiz" id="quiz"></div>
+      <p class="muted" style="margin-top:18px">
+        Checked in your browser. No account, no server, no leaderboard.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section class="block" aria-labelledby="srcHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Provenance</span>
+        <h2 id="srcHead">Sources &amp; credits</h2>
+      </div>
+      <ul class="source-list" id="sourceList"></ul>
+      <div class="credit-box" id="creditBox" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Bharat Darshan</h4>
+        <p style="font-size:.9rem">A static, offline-friendly heritage atlas. No login, no tracking,
+          no paid APIs — your saved journey stays on this device.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="../index.html">Map</a></li>
+          <li><a href="../archive.html">Living Archive</a></li>
+          <li><a href="../journey.html">My Journey</a></li>
+          <li><a href="../guess.html">Guess the Monument</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="../about.html#architecture">Architecture</a></li>
+          <li><a href="../about.html#credits">Photo credits &amp; licences</a></li>
+          <li><a href="../about.html#sources">Sources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>Heritage data compiled from UNESCO and Archaeological Survey of India pages.</span>
+      <span>Images from Wikimedia Commons and the Cleveland Museum of Art — see
+        <a href="../about.html#credits">credits</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- hotspot / detail modal -->
+<div class="modal-backdrop" id="modalBack" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal">
+    <button class="close" id="modalClose" aria-label="Close">✕</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../vendor/pannellum.js?v=20261102n"></script>
+<script src="../js/sites-data.js?v=20261102n"></script>
+<script src="../js/i18n.js?v=20261102n"></script>
+<script src="../js/store.js?v=20261102n"></script>
+<script src="../js/taj-story.js?v=20261102n"></script>
+<script src="../js/enhancements.js?v=20261104"></script>
+</body>
+</html>

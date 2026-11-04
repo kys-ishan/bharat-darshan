@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Heritage Stories - Bharat Darshan</title>
+<meta name="description" content="Every monument in the atlas, with its history, architecture and routes. Twenty-five sites across six regions of India." />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#123A2E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="../css/base.css?v=20261102n" />
+<link rel="stylesheet" href="../css/pages.css?v=20261102n" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../css/theme.css?v=20261103" />
+<link rel="stylesheet" href="../css/enhancements.css?v=20261104" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to the stories</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 30 34" aria-hidden="true" focusable="false">
+        <path d="M15 1.5c-6.6 0-12 5.2-12 11.7 0 8.4 12 19.3 12 19.3s12-10.9 12-19.3C27 6.7 21.6 1.5 15 1.5Z"
+              fill="none" stroke="#123A2E" stroke-width="2"/>
+        <path d="M9.5 15.5v-2.2a5.5 5.5 0 0 1 11 0v2.2" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <path d="M11.5 15.5h7v4h-7z" fill="#C9A227"/>
+      </svg>
+      <span>
+        <span class="brand-name">Bharat Darshan</span><br />
+        <span class="brand-sub">Heritage Atlas India</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks"
+            data-i18n="nav.menu">Menu</button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="../index.html" data-i18n="nav.map">Explore Map</a>
+      <a href="../archive.html" data-i18n="nav.archive">Living Archive</a>
+      <a href="index.html" aria-current="page" data-i18n="nav.stories">Heritage Stories</a>
+      <a href="../journey.html" data-i18n="nav.journey">My Journey</a>
+      <a href="../about.html" data-i18n="nav.about">About</a>
+      <button class="pill" id="langToggle" aria-pressed="false">हिन्दी</button>
+      <button class="pill" id="a11yToggle" aria-expanded="false" aria-controls="a11yPanel"
+              data-i18n="nav.a11y">Accessibility</button>
+    </nav>
+  </div>
+
+  <div class="a11y-panel" id="a11yPanel" hidden role="group" aria-label="Accessibility options">
+    <h4>Display</h4>
+    <label><input type="checkbox" id="optContrast" /> High contrast</label>
+    <label><input type="checkbox" id="optText" /> Larger text</label>
+    <label><input type="checkbox" id="optMotion" /> Reduced motion</label>
+  </div>
+</header>
+
+<section class="page-head" style="--head-img:url('../assets/img/mahabalipuram.jpg')">
+  <div class="wrap">
+    <p class="crumbs"><a href="../index.html" data-i18n="nav.map">Explore Map</a> / <span data-i18n="nav.stories">Heritage Stories</span></p>
+    <span class="kicker" data-i18n="stories.kicker">Heritage Stories</span>
+    <h1 id="storiesHead" data-i18n="stories.title">Every monument, told in full</h1>
+    <p class="sub" data-i18n="stories.sub">
+      Twenty-five sites across six regions. Open any one for its history, its architecture,
+      and the routes that connect it to the rest of the atlas.
+    </p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+
+    <section class="block" aria-labelledby="storiesHead">
+      <p class="story-count" id="storyCount"></p>
+
+      <!-- Cards are built from js/sites-data.js at load, so a site added there
+           appears here without this file being touched. -->
+      <div class="story-grid" id="storyGrid"></div>
+
+      <p class="story-note" data-i18n="stories.note">
+        Only the Taj Mahal has the full interactive treatment with a 360° tour.
+        Every other site opens its record, where the same five-part story is set out.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Bharat Darshan</h4>
+        <p style="font-size:.9rem">
+          A static, offline-friendly heritage atlas. No login, no tracking, no paid APIs —
+          your saved journey stays on this device.
+        </p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="../index.html">Map</a></li>
+          <li><a href="../archive.html">Living Archive</a></li>
+          <li><a href="../manuscript.html">Field Notes Reader</a></li>
+          <li><a href="../graph.html">Knowledge Graph</a></li>
+          <li><a href="index.html">Heritage Stories</a></li>
+          <li><a href="../journey.html">My Journey</a></li>
+          <li><a href="../guess.html">Guess the Monument</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="../about.html">About the team</a></li>
+          <li><a href="../about.html#architecture">Architecture</a></li>
+          <li><a href="../about.html#credits">Photo credits &amp; licences</a></li>
+          <li><a href="../about.html#sources">Sources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>Heritage data compiled from UNESCO and Archaeological Survey of India pages.</span>
+      <span>Images hotlinked/downloaded from Wikimedia Commons — see <a href="../about.html#credits">credits</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/sites-data.js?v=20261102n"></script>
+<script src="../js/i18n.js?v=20261102n"></script>
+<!-- store.js provides initA11y(); without it the renderer throws before it
+     draws a single card and the grid stays empty. -->
+<script src="../js/store.js?v=20261102n"></script>
+<script src="../js/stories-index.js?v=20261102n"></script>
+<script src="../js/enhancements.js?v=20261104"></script>
+</body>
+</html>

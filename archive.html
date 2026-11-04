@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Living Archive — Bharat Darshan</title>
+<meta name="description" content="Full-text search across every monument, manuscript page and material in the Bharat Darshan living archive." />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#123A2E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/base.css?v=20261102n" />
+<link rel="stylesheet" href="css/pages.css?v=20261102n" />
+<link rel="stylesheet" href="css/lens.css?v=20261102n" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/theme.css?v=20261103" />
+<link rel="stylesheet" href="css/enhancements.css?v=20261104" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to search</a>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 30 34" aria-hidden="true" focusable="false">
+        <path d="M15 1.5c-6.6 0-12 5.2-12 11.7 0 8.4 12 19.3 12 19.3s12-10.9 12-19.3C27 6.7 21.6 1.5 15 1.5Z"
+              fill="none" stroke="#123A2E" stroke-width="2"/>
+        <path d="M9.5 15.5v-2.2a5.5 5.5 0 0 1 11 0v2.2" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <path d="M11.5 15.5h7v4h-7z" fill="#C9A227"/>
+      </svg>
+      <span>
+        <span class="brand-name">Bharat Darshan</span><br />
+        <span class="brand-sub">Heritage Atlas India</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks"
+            data-i18n="nav.menu">Menu</button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="index.html" data-i18n="nav.map">Explore Map</a>
+      <a href="archive.html" aria-current="page" data-i18n="nav.archive">Living Archive</a>
+      <a href="stories/index.html" data-i18n="nav.stories">Heritage Stories</a>
+      <a href="journey.html" data-i18n="nav.journey">My Journey</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <button class="pill" id="langToggle" aria-pressed="false">हिन्दी</button>
+      <button class="pill" id="a11yToggle" aria-expanded="false" aria-controls="a11yPanel"
+              data-i18n="nav.a11y">Accessibility</button>
+    </nav>
+  </div>
+
+  <div class="a11y-panel" id="a11yPanel" hidden role="group" aria-label="Accessibility options">
+    <h4>Display</h4>
+    <label><input type="checkbox" id="optContrast" /> High contrast</label>
+    <label><input type="checkbox" id="optText" /> Larger text</label>
+    <label><input type="checkbox" id="optMotion" /> Reduced motion</label>
+    <p style="font-size:.8rem;color:var(--teal);margin:8px 0 0">
+      A keyboard-friendly list of every site is available under “List view”.
+    </p>
+  </div>
+</header>
+
+<section class="page-head" style="--head-img:url('assets/img/rani-ki-vav.jpg')">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html" data-i18n="nav.map">Explore Map</a> / <span data-i18n="nav.archive">Living Archive</span></p>
+    <span class="kicker" data-i18n="archive.kicker">The Living Archive</span>
+    <h1 id="archHead" data-i18n="archive.title">Search the whole archive at once</h1>
+    <p class="sub" data-i18n="archive.sub">
+      Twenty-five monuments, their manuscript pages and every material named across them —
+      indexed together. Rank BM25, matches highlighted, every result opening the real page.
+    </p>
+    <span class="honesty" data-i18n="archive.honesty">Live index — built in your browser, nothing uploaded</span>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+
+    <section class="block" aria-labelledby="archHead">
+      <form class="searchbar" id="searchForm" role="search">
+        <label class="visually-hidden" for="q" data-i18n="archive.phLabel">Search the archive</label>
+        <input type="search" id="q" name="q" autocomplete="off"
+               placeholder="granite · marble inlay · stepwell · Vijayanagara"
+               data-i18n-ph="archive.ph" />
+        <button class="btn btn-dark" type="submit" data-i18n="archive.btn">Search</button>
+      </form>
+
+      <div class="chips" id="chips" role="group" aria-label="Starter queries"></div>
+
+      <p class="result-count" id="resultCount" role="status" aria-live="polite"></p>
+      <div id="results"></div>
+
+      <div class="stat-strip" id="stats"></div>
+    </section>
+
+    <section class="block" aria-labelledby="wingHead">
+      <div class="block-head">
+        <h2 id="wingHead" data-i18n="archive.wing">Two more ways into the same archive</h2>
+        <p data-i18n="archive.wingSub">
+          Search answers “what does the record say?”. These answer “how was it made?” and “what connects to what?”.
+        </p>
+      </div>
+
+      <div class="archive-cards">
+        <a class="archive-card" href="manuscript.html">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/>
+          </svg>
+          <h3>Field Notes Reader</h3>
+          <p>Read a field-note leaf word by word, with per-word OCR confidence — and run real OCR on your own scan.</p>
+          <span class="go">Open the reader →</span>
+        </a>
+
+        <a class="archive-card" href="graph.html">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="5" cy="6" r="2.4"/><circle cx="19" cy="6" r="2.4"/>
+            <circle cx="12" cy="18" r="2.4"/><path d="M6.9 7.2 10.6 16M17.1 7.2 13.4 16M7.4 6h9.2"/>
+          </svg>
+          <h3>Knowledge Graph</h3>
+          <p>Every monument, material and manuscript page as one force-directed graph you can pan, zoom and trace.</p>
+          <span class="go">Open the graph →</span>
+        </a>
+
+        <a class="archive-card" href="index.html">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+          </svg>
+          <h3>The Map</h3>
+          <p>Everything here has a place. Go back to the atlas to see where the archive is standing.</p>
+          <span class="go">Back to the map →</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Bharat Darshan</h4>
+        <p style="font-size:.9rem">
+          A static, offline-friendly heritage atlas. No login, no tracking, no paid APIs —
+          your saved journey stays on this device.
+        </p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Map</a></li>
+          <li><a href="archive.html">Living Archive</a></li>
+          <li><a href="manuscript.html">Field Notes Reader</a></li>
+          <li><a href="graph.html">Knowledge Graph</a></li>
+          <li><a href="stories/index.html">Heritage Stories</a></li>
+          <li><a href="journey.html">My Journey</a></li>
+          <li><a href="guess.html">Guess the Monument</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="about.html">About the team</a></li>
+          <li><a href="about.html#architecture">Architecture</a></li>
+          <li><a href="about.html#credits">Photo credits &amp; licences</a></li>
+          <li><a href="about.html#sources">Sources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>Heritage data compiled from UNESCO and Archaeological Survey of India pages.</span>
+      <span>Images hotlinked/downloaded from Wikimedia Commons — see <a href="about.html#credits">credits</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/sites-data.js?v=20261102n"></script>
+<script src="js/lens-data.js?v=20261102n"></script>
+<script src="js/bm25.js?v=20261102n"></script>
+<script src="js/i18n.js?v=20261102n"></script>
+<script src="js/store.js?v=20261102n"></script>
+<script src="js/archive-page.js?v=20261102n"></script>
+<script src="js/enhancements.js?v=20261104"></script>
+</body>
+</html>
