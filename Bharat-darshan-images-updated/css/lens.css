@@ -1,0 +1,267 @@
+/* ============================================================
+ *  Bharat Darshan — css/lens.css
+ *  Styles for the Living Archive wing: archive.html,
+ *  manuscript.html and graph.html.
+ *
+ *  Loaded AFTER base.css + pages.css, so it only adds. It never
+ *  redefines a token — every colour here is one of the eight
+ *  heritage tokens declared in base.css.
+ * ============================================================ */
+
+/* ---------- shared page furniture ---------- */
+.lens-head { max-width: 780px; margin-bottom: 26px; }
+.lens-head .kicker { color: var(--teal); }
+.lens-head h1 { margin-bottom: .25em; }
+.lens-head .sub { color: #3D5248; font-size: 1.02rem; line-height: 1.65; margin: 0; }
+
+.honesty {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 14px; padding: 5px 12px;
+  border: 1px dashed var(--line-gold); border-radius: 999px;
+  background: rgba(201, 162, 39, .08);
+  font-size: .78rem; letter-spacing: .04em; color: #6B5A2E;
+}
+.honesty::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold); flex: none;
+}
+
+/* ---------- search ---------- */
+.searchbar { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 16px; }
+.searchbar input[type="search"] {
+  flex: 1 1 300px; min-height: 50px;
+  padding: 12px 18px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--ink);
+  font: inherit; font-size: 1rem;
+}
+.searchbar input[type="search"]:focus-visible {
+  outline: var(--focus); outline-offset: 2px; border-color: var(--teal);
+}
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+.chips .pill { cursor: pointer; }
+
+.result-count { font-size: .85rem; color: var(--teal); margin: 0 0 18px; }
+
+.result {
+  display: grid; grid-template-columns: 78px 1fr; gap: 16px;
+  padding: 18px 0; border-top: 1px solid var(--line);
+}
+.result:first-of-type { border-top: 2px solid var(--ink); }
+.result-thumb {
+  width: 78px; height: 104px; border-radius: var(--radius-sm);
+  border: 1px solid var(--line); overflow: hidden; background: #F7F1DE;
+}
+.result-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.result-thumb svg { width: 100%; height: 100%; display: block; }
+
+.result-kind {
+  display: inline-block; padding: 2px 9px; margin-bottom: 7px;
+  border-radius: 999px; font-size: .7rem; letter-spacing: .09em;
+  text-transform: uppercase; font-weight: 600;
+  border: 1px solid var(--line); color: #3D5248; background: var(--surface-2);
+}
+.result-kind[data-kind="site"]     { border-color: var(--m-cave);  color: var(--ink); background: rgba(74,95,46,.14); }
+.result-kind[data-kind="page"]     { border-color: var(--m-temple);color: #6B4A0F; background: rgba(168,116,26,.14); }
+.result-kind[data-kind="entity"]   { border-color: var(--teal);    color: var(--teal); background: rgba(29,90,110,.10); }
+.result-kind[data-kind="doc"]      { border-color: var(--oxblood); color: var(--oxblood); background: rgba(75,18,22,.10); }
+
+.result h3 { font-size: 1.2rem; margin: 0 0 4px; }
+.result h3 a { color: var(--ink); text-decoration: none; }
+.result h3 a:hover { color: var(--teal); text-decoration: underline; }
+.result .where { font-size: .82rem; color: var(--teal); margin: 0 0 8px; }
+.result .excerpt { font-size: .92rem; line-height: 1.6; color: #3D5248; margin: 0 0 10px; }
+.result mark { background: rgba(222,160,68,.42); color: inherit; padding: 0 2px; border-radius: 2px; }
+.result .row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.empty-state { color: #3D5248; padding: 26px 0; border-top: 1px solid var(--line); }
+
+/* ---------- manuscript lens ---------- */
+.lens-grid {
+  display: grid; grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: 30px; align-items: start;
+}
+@media (max-width: 860px) { .lens-grid { grid-template-columns: 1fr; } }
+
+.lens-stage {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; background: var(--surface);
+  position: relative; aspect-ratio: 420 / 560;
+}
+.lens-stage svg { width: 100%; height: 100%; display: block; }
+
+/* The SVG draws the word itself, so these boxes must not put a fill over it —
+   a tint on every box was what turned the leaf into coloured bars. They stay
+   invisible until hovered, selected, or flagged as a damaged region. */
+.wordbox {
+  position: absolute; border-radius: 2px; cursor: pointer;
+  background: transparent; border: 1px solid transparent;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.wordbox:hover, .wordbox:focus-visible {
+  transform: scale(1.18); box-shadow: 0 0 0 2px var(--gold); z-index: 2;
+  background: rgba(222,160,68,.22); border-color: var(--gold);
+}
+.wordbox.low { background: rgba(75,18,22,.12); border-color: rgba(75,18,22,.38); }
+.wordbox.sel  { box-shadow: 0 0 0 2px var(--teal); background: rgba(29,90,110,.22); }
+
+/* Leaves are grouped under the monument they describe, instead of one flat
+   row where the same "leaf 1 / 2 / 3" repeated per document. */
+.page-picker {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  align-items: flex-start; margin-bottom: 20px;
+}
+.page-group { display: flex; flex-direction: column; gap: 6px; }
+.page-group-head { display: flex; align-items: baseline; gap: 9px; margin-bottom: 1px; }
+.page-group-name {
+  font-family: var(--serif); font-size: 1.06rem; font-weight: 600; color: var(--ink);
+}
+.page-group-link {
+  font-family: var(--sans); font-size: .68rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal); text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.page-group-link:hover, .page-group-link:focus-visible { border-bottom-color: var(--teal); }
+.page-picker button {
+  min-height: 38px; padding: 7px 13px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--ink);
+  font: inherit; font-size: .84rem; cursor: pointer; text-align: left;
+}
+.page-picker button[aria-pressed="true"] {
+  background: var(--ink); color: var(--parchment); border-color: var(--ink);
+}
+
+/* the actual monument, photographed, beside the transcription */
+.lens-photo { margin: 0 0 16px; }
+.lens-photo img {
+  display: block; width: 100%; height: 168px; object-fit: cover;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.lens-photo figcaption {
+  margin-top: 7px;
+  font-family: var(--sans); font-size: .76rem; font-weight: 500;
+  letter-spacing: .04em; color: var(--teal);
+}
+
+.transcript {
+  border-left: 3px solid var(--moss); padding: 2px 0 2px 16px;
+  font-size: 1.02rem; line-height: 1.9; color: var(--ink); margin: 0 0 22px;
+}
+.transcript .deva { font-family: "Noto Sans Devanagari", serif; }
+
+.wordrow {
+  display: grid; grid-template-columns: 1fr 58px; gap: 12px;
+  align-items: center; padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: .85rem;
+}
+.wordrow.sel { background: rgba(29,90,110,.09); }
+.conf-bar { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+.conf-bar i { display: block; height: 100%; }
+.conf-num { font-size: .74rem; color: var(--teal); text-align: right; margin-top: 2px; }
+
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 14px 0 0; font-size: .8rem; color: var(--teal); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* ---------- live OCR uploader ---------- */
+.upload {
+  margin-top: 30px; padding: 22px;
+  border: 1px dashed var(--line-gold); border-radius: var(--radius);
+  background: rgba(222,160,68,.06);
+}
+.upload h3 { margin: 0 0 6px; font-size: 1.1rem; }
+.upload p { font-size: .9rem; color: #3D5248; margin: 0 0 14px; }
+/* A file input carries an intrinsic width — the browse button plus the
+   "No file chosen" label — of about 343px. On a 375px phone that pushed
+   the page into a 22px sideways scroll. Clamping it costs nothing on
+   desktop, where the box was never that wide anyway. */
+.upload input[type="file"] { margin-bottom: 12px; max-width: 100%; box-sizing: border-box; }
+.upload-status { font-size: .86rem; color: var(--teal); min-height: 1.4em; }
+.ocr-out {
+  margin-top: 14px; padding: 16px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); font-size: .94rem; line-height: 1.7;
+  white-space: pre-wrap; max-height: 320px; overflow: auto;
+}
+.ocr-out .w { padding: 1px 2px; border-radius: 2px; }
+
+/* ---------- knowledge graph ---------- */
+.graph-shell { position: relative; }
+.graph-canvas {
+  width: 100%; height: min(64vh, 620px); display: block;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); cursor: grab;
+}
+.graph-canvas:active { cursor: grabbing; }
+.graph-canvas:focus-visible { outline: var(--focus); outline-offset: 3px; }
+
+.graph-tools {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  margin-bottom: 14px;
+}
+.graph-tools input[type="search"] {
+  flex: 1 1 220px; min-height: 42px; padding: 9px 15px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--ink); font: inherit;
+}
+.graph-tools button {
+  min-height: 42px; padding: 9px 15px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--ink); font: inherit;
+  font-size: .86rem; cursor: pointer;
+}
+.graph-tools button:hover { background: var(--surface-2); }
+
+.graph-legend {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin: 14px 0 0; font-size: .8rem; color: var(--teal);
+}
+.graph-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.graph-legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+
+.graph-panel {
+  position: absolute; top: 14px; right: 14px; width: min(320px, 82%);
+  padding: 18px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow); z-index: 3;
+}
+.graph-panel h3 { margin: 0 0 4px; font-size: 1.12rem; }
+.graph-panel .meta { font-size: .8rem; color: var(--teal); margin: 0 0 10px; }
+.graph-panel p.note { font-size: .88rem; line-height: 1.6; color: #3D5248; margin: 0 0 14px; }
+.graph-panel .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.graph-panel .close {
+  position: absolute; top: 10px; right: 10px;
+  min-height: 30px; padding: 3px 9px; font-size: .78rem;
+}
+
+/* ---------- archive hub cards ---------- */
+.archive-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 8px; }
+.archive-card {
+  display: block; padding: 22px; text-decoration: none;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); color: var(--ink);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.archive-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); }
+.archive-card h3 { margin: 0 0 6px; font-size: 1.18rem; }
+.archive-card p { margin: 0 0 12px; font-size: .9rem; color: #3D5248; line-height: 1.55; }
+.archive-card .go { font-size: .84rem; color: var(--teal); font-weight: 600; }
+.archive-card .ico { width: 26px; height: 26px; margin-bottom: 10px; stroke: var(--teal); fill: none; stroke-width: 1.6; }
+
+.stat-strip {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px; margin: 22px 0 0;
+}
+.stat-strip div { padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.stat-strip b { display: block; font-family: var(--serif); font-size: 1.7rem; color: var(--ink); line-height: 1; }
+.stat-strip span { font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wordbox, .archive-card { transition: none; }
+}

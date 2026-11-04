@@ -1,0 +1,616 @@
+/* ============================================================
+   BHARAT DARSHAN — Heritage Atlas India
+   base.css — theme tokens, layout, shared components
+   Vintage ancient-Indian heritage theme
+   ============================================================ */
+
+/* ---------- 1. COLOUR TOKENS ---------- */
+:root {
+  /* Palette drawn from two references the team supplied:
+     a Persian-carpet / Pantone swatch set (deep maroon, warm tan,
+     forest green, teal, navy) and a Palace of Fine Arts set whose hex
+     values were printed on the image (#CDC8B8, #DEA044, #BF8250,
+     #9D473A, #416A81). Every value below is checked for contrast by
+     tools/check_contrast.py — run it before changing any of these. */
+  --ink:        #123A2E;  /* warm deep green — text, dark surfaces */
+  --moss:       #5F7040;  /* moss green — secondary (darkened to pass AA) */
+  --parchment:  #F4EBD9;  /* warm cream — background, cards */
+  --rose:       #BF8250;  /* clay / terracotta — primary accent */
+  --on-rose:    #2B1410;  /* dark brown — text that sits on clay */
+  --teal:       #1D5A6E;  /* deep teal — deep accent, links */
+  --gold:       #C9A227;  /* antique gold — UNESCO, hairlines */
+  --gold-bright:#DEA044;  /* golden yellow — display type on dark only */
+  --oxblood:    #4B1216;  /* deep maroon — rare emphasis */
+
+  /* marker categories — one source of truth. app.js reads these custom
+     properties rather than keeping its own copy, so the legend and the
+     pins on the map can never disagree. */
+  --m-fort:     #9D473A;  /* brick red    */
+  --m-stepwell: #416A81;  /* steel blue   */
+  --m-temple:   #A8741A;  /* deep amber   */
+  --m-cave:     #4A5F2E;  /* deep moss    */
+  --m-other:    #8A6D4F;  /* earth brown  */
+
+  /* surfaces */
+  --surface:    #FBF4E6;
+  --surface-2:  #EFE3CE;
+  --line:       #DFD0B4;
+  --line-gold:  rgba(222, 160, 68, .55);
+  --shadow:     0 2px 4px rgba(18, 58, 46, .06),
+                0 12px 32px rgba(18, 58, 46, .10);
+
+  --serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --sans:  "Inter", "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+  --deva:  "Noto Sans Devanagari", "Inter", sans-serif;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --nav-h: 66px;
+  --max: 1280px;
+  --focus: 3px solid var(--rose);
+}
+
+/* ---------- 2. RESET ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+  background-color: var(--parchment);
+  /* very light paper grain — no image request */
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(95,112,64,.07) 0 1px, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(18,58,46,.05) 0 1px, transparent 1px),
+    radial-gradient(circle at 45% 85%, rgba(191,130,80,.08) 0 1px, transparent 1px);
+  background-size: 27px 27px, 41px 41px, 33px 33px;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--teal); }
+
+:focus-visible {
+  outline: var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 999;
+  background: var(--ink); color: var(--parchment);
+  padding: 10px 18px; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ---------- 3. TYPOGRAPHY ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 .5em;
+  letter-spacing: .01em;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); }
+h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); }
+h3 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); }
+p  { margin: 0 0 1em; }
+
+.kicker {
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: .9rem;
+}
+
+/* manuscript double-rule with gold hairline */
+.rule {
+  border: 0; height: 6px; margin: 2.2rem auto; max-width: 260px;
+  background:
+    linear-gradient(var(--line-gold), var(--line-gold)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(var(--line-gold), var(--line-gold)) 0 100% / 100% 1px no-repeat;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+.section { padding: clamp(48px, 7vw, 88px) 0; }
+
+/* ---------- 4. NAVIGATION ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 200;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  background: rgba(244, 235, 217, .93);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--line-gold), transparent);
+}
+.nav .wrap { display: flex; align-items: center; gap: 20px; width: 100%; }
+
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark { width: 30px; height: 34px; flex: none; }
+.brand-name {
+  font-family: var(--serif); font-size: 1.32rem; font-weight: 700;
+  letter-spacing: .04em; line-height: 1;
+}
+.brand-sub { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); }
+
+.nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav-links a, .nav-links button {
+  background: none; border: 0; cursor: pointer;
+  padding: 9px 13px; border-radius: var(--radius-sm);
+  font-size: .92rem; font-weight: 500; color: var(--ink);
+  text-decoration: none; transition: background .18s, color .18s;
+}
+.nav-links a:hover, .nav-links a[aria-current="page"],
+.nav-links button:hover { background: rgba(191,130,80,.28); }
+
+.pill {
+  border: 1px solid var(--line) !important;
+  background: var(--surface) !important;
+  border-radius: 999px !important;
+  font-size: .82rem !important; font-weight: 600 !important;
+  padding: 7px 14px !important;
+}
+.pill[aria-pressed="true"] { background: var(--ink) !important; color: var(--parchment) !important; border-color: var(--ink) !important; }
+
+.nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer; }
+
+/* accessibility popover */
+.a11y-panel {
+  position: absolute; right: clamp(16px,4vw,40px); top: calc(var(--nav-h) + 8px);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 16px; width: 250px; z-index: 210;
+}
+.a11y-panel[hidden] { display: none; }
+.a11y-panel h4 { font-family: var(--sans); font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; color: var(--oxblood); }
+.a11y-panel label { display: flex; gap: 10px; align-items: center; padding: 8px 0; cursor: pointer; font-size: .92rem; }
+
+/* ---------- 5. BUTTONS ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 11px 22px;
+  border-radius: var(--radius-sm); border: 1px solid transparent;
+  font-weight: 600; font-size: .95rem; cursor: pointer;
+  text-decoration: none; transition: transform .18s, box-shadow .18s, background .18s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(18,58,46,.16); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--rose); color: var(--on-rose); }
+.btn-dark    { background: var(--ink); color: var(--parchment); }
+.btn-ghost   { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-sm { min-height: 38px; padding: 8px 15px; font-size: .87rem; }
+
+/* ---------- 6. HERO (arch + ruins) ---------- */
+.hero {
+  position: relative;
+  min-height: clamp(540px, 78vh, 740px);
+  display: grid; place-items: center; text-align: center;
+  color: var(--parchment);
+  background:
+    linear-gradient(180deg, rgba(18,58,46,.86), rgba(18,58,46,.72) 55%, rgba(18,58,46,.94)),
+    radial-gradient(1200px 500px at 50% 0%, #1D5A47, #123A2E 70%);
+  overflow: hidden;
+  padding: 84px 20px 100px;
+}
+/* light jali-screen pattern */
+.hero::before {
+  content: ""; position: absolute; inset: 0; opacity: .16; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Cpath d='M30 12 L48 30 L30 48 L12 30 Z'/%3E%3Ccircle cx='30' cy='30' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner { position: relative; z-index: 2; max-width: 780px; }
+
+/* The cusped arch outline. The path is computed by tools/make_arch.py and
+   pasted into index.html. preserveAspectRatio="none" lets it hug whatever the
+   content box becomes, and non-scaling-stroke keeps the hairline even while
+   stretched, otherwise the foils would draw thicker than the uprights. */
+.arch-outline {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; overflow: visible;
+  z-index: 1;
+}
+.arch-outline path {
+  fill: rgba(18, 58, 46, .30);
+  stroke: var(--line-gold);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.arch-outline .inner {
+  fill: none;
+  stroke: rgba(222, 160, 68, .42);
+  stroke-width: 1;
+}
+
+/* content sits inside the arch head, clear of the cusp points */
+.arch-frame {
+  position: relative; z-index: 2;
+  padding: clamp(54px, 8vw, 86px) clamp(32px, 6vw, 70px) clamp(40px, 5vw, 56px);
+}
+
+/* tracked small-caps kicker with a rule under it */
+.hero .kicker {
+  display: block;
+  font-family: var(--sans);
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .34em; text-transform: uppercase;
+  color: var(--gold-bright);
+  margin: 0 0 6px;
+}
+.hero .kicker::after {
+  content: ""; display: block; width: 42px; height: 1px;
+  background: var(--gold-bright); margin: 16px auto 0; opacity: .75;
+}
+
+/* two-tone display: plain line, then the italic line in gold.
+   Each half is its own element so translation cannot flatten the emphasis. */
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.05rem, 5.6vw, 3.7rem);
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--parchment);
+  margin: 22px 0 18px;
+  text-shadow: 0 4px 24px rgba(0,0,0,.35);
+}
+.hero h1 span { display: block; }
+.hero h1 em {
+  display: block;
+  font-style: italic; font-weight: 500;
+  color: var(--gold-bright);
+}
+
+.hero .lede {
+  font-size: clamp(1rem, 2vw, 1.16rem);
+  color: rgba(244,235,217,.86);
+  max-width: 540px; margin: 0 auto 1.7rem;
+}
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* counted straight out of js/sites-data.js — 25 / 6 / 4 */
+.hero-facts {
+  display: flex; align-items: center; justify-content: center;
+  gap: 13px; margin: 32px 0 0;
+  font-family: var(--sans); font-size: .7rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(244,235,217,.7);
+}
+.hero-facts i {
+  width: 4px; height: 4px; flex: none;
+  background: var(--gold-bright); transform: rotate(45deg);
+}
+
+/* real bounding box of the 25 sites — the coordinate motif from image 4 */
+.hero-coords {
+  position: absolute; right: 24px; top: 50%; z-index: 3;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+  margin: 0;
+  font-family: var(--sans); font-size: .62rem; font-weight: 500;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(244,235,217,.48);
+  white-space: nowrap;
+}
+/* The label is only ~16px wide once rotated, but it sits at the viewport edge
+   while the arch sits inside a 760px box. Below ~840px those two overlap, so
+   the label is dropped there rather than drawn across the arch. Measured, not
+   guessed: label left = width-40, arch right = (width+760)/2. */
+@media (max-width: 899px) { .hero-coords { display: none; } }
+
+.scroll-cue {
+  position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+  font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(244,235,217,.7); z-index: 3;
+}
+
+/* ---------- 7. TOOLBAR: search + filters ---------- */
+.toolbar {
+  position: sticky; top: var(--nav-h); z-index: 150;
+  background: var(--parchment);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.toolbar .wrap { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.search-box { position: relative; flex: 1 1 260px; min-width: 220px; }
+.search-box input {
+  width: 100%; min-height: 44px;
+  padding: 10px 14px 10px 40px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.search-box .icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--teal); pointer-events: none; }
+.suggestions {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 40;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow); overflow: hidden;
+}
+.suggestions[hidden] { display: none; }
+.suggestions button {
+  display: block; width: 100%; text-align: left;
+  padding: 11px 14px; background: none; border: 0; cursor: pointer;
+  border-bottom: 1px solid var(--line);
+}
+.suggestions button:last-child { border-bottom: 0; }
+.suggestions button:hover, .suggestions button:focus { background: var(--surface-2); }
+.suggestions small { color: var(--teal); }
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); }
+.seg button { min-height: 44px; padding: 0 16px; background: none; border: 0; cursor: pointer; font-weight: 600; font-size: .88rem; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--parchment); }
+
+/* filter drawer */
+.filters { border-bottom: 1px solid var(--line); background: var(--surface-2); padding: 16px 0; }
+.filters[hidden] { display: none; }
+.filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+.filter-group h4 { font-family: var(--sans); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; margin: 0 6px 6px 0;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; font-size: .84rem; cursor: pointer; min-height: 34px;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--parchment); border-color: var(--ink); }
+
+.result-count { font-size: .88rem; color: var(--teal); font-weight: 600; }
+
+/* ---------- 8. MAP ---------- */
+.map-layout { display: grid; grid-template-columns: 1fr 360px; gap: 18px; align-items: start; }
+.map-shell {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  background: var(--surface-2);
+}
+#map { height: clamp(460px, 66vh, 680px); width: 100%; background: #E8E3C8; }
+
+.legend {
+  position: absolute; left: 12px; bottom: 12px; z-index: 500;
+  background: rgba(251,244,230,.95); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+  font-size: .76rem; box-shadow: var(--shadow);
+}
+.legend b { display: block; font-family: var(--sans); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 6px; }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.legend li { display: flex; align-items: center; gap: 7px; }
+.legend i { width: 11px; height: 11px; border-radius: 50%; flex: none; border: 2px solid; }
+.legend .unesco { color: var(--gold); font-weight: 700; }
+
+/* custom teardrop markers */
+.site-pin { background: none !important; border: 0 !important; }
+.pin-shape {
+  width: 26px; height: 26px;
+  transform: rotate(45deg);
+  border-radius: 50% 50% 50% 0;
+  border: 2px solid var(--parchment);
+  box-shadow: 0 3px 7px rgba(18,58,46,.45);
+  display: grid; place-items: center;
+  transition: transform .18s;
+}
+.pin-shape svg { transform: rotate(-45deg); width: 13px; height: 13px; fill: #FBF4E6; }
+.site-pin:hover .pin-shape, .site-pin.is-active .pin-shape { transform: rotate(45deg) scale(1.18); }
+.pin-unesco {
+  position: relative;
+}
+.pin-unesco::after {
+  content: "★"; position: absolute; top: -9px; right: -8px;
+  font-size: 12px; color: var(--gold); text-shadow: 0 0 3px #000, 0 0 2px #000;
+}
+@keyframes pin-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(222,160,68,.65); }
+  100% { box-shadow: 0 0 0 18px rgba(222,160,68,0); }
+}
+.site-pin.is-active .pin-shape { animation: pin-pulse 1.6s ease-out infinite; }
+
+/* one hover label per pin, in our palette — replaces the browser's own
+   title box, which stacks across dense regions like Delhi-Agra */
+.leaflet-tooltip.site-tip {
+  background: var(--parchment);
+  color: var(--ink);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(18,58,46,.35);
+  font-family: var(--serif);
+  font-size: .8rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  white-space: nowrap;
+  opacity: 1;
+}
+.leaflet-tooltip.site-tip::before { display: none; }
+.leaflet-tooltip.site-tip.leaflet-tooltip-top { margin-top: -4px; }
+
+/* clustering */
+.cluster-wrap { display: grid; place-items: center; }
+.cluster {
+  width: 100%; height: 100%;
+  background: var(--teal); color: var(--parchment);
+  border: 2px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: .86rem;
+  box-shadow: 0 3px 10px rgba(18,58,46,.4);
+}
+
+/* ---------- 9. PREVIEW PANEL / BOTTOM SHEET ---------- */
+.preview {
+  position: sticky; top: calc(var(--nav-h) + 78px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.preview[hidden] { display: none; }
+.preview-media { position: relative; aspect-ratio: 16/10; background: var(--surface-2); }
+.preview-media img { width: 100%; height: 100%; object-fit: cover; }
+.preview-body { padding: 18px; }
+.preview-body h3 { margin-bottom: 4px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 12px; }
+.tag {
+  font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 999px;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--teal);
+}
+.tag-un { background: rgba(222,160,68,.18); border-color: var(--gold); color: #7A5F0E; font-weight: 700; }
+.preview-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.preview-actions .btn { flex: 1 1 auto; }
+.preview-close { position: absolute; top: 8px; right: 8px; z-index: 3; }
+
+.empty-state {
+  text-align: center; padding: 34px 18px; color: var(--teal);
+  border: 1px dashed var(--line); border-radius: var(--radius); background: var(--surface);
+}
+
+/* ---------- 10. LIST VIEW + CARDS ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 20px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 1px 3px rgba(18,58,46,.06);
+  transition: transform .22s, box-shadow .22s;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.card-media { aspect-ratio: 16/10; background: var(--surface-2); overflow: hidden; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.card:hover .card-media img { transform: scale(1.05); }
+.card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+.card-body h3 { font-size: 1.18rem; margin-bottom: 2px; }
+.card-loc { font-size: .84rem; color: var(--teal); margin-bottom: 8px; }
+.card-desc { font-size: .9rem; color: #3D5248; margin-bottom: 12px; flex: 1; }
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- 11. SECTION HEAD ---------- */
+.section-head { max-width: 720px; margin: 0 auto 40px; text-align: center; }
+.section-head p { color: #3D5248; font-size: 1.04rem; }
+
+/* ---------- 12. FOOTER ---------- */
+.footer { background: var(--ink); color: rgba(244,235,217,.82); padding: 54px 0 30px; margin-top: 60px; }
+.footer h4 { color: var(--parchment); font-family: var(--sans); font-size: .76rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 30px; }
+.footer a { color: rgba(244,235,217,.8); text-decoration: none; }
+.footer a:hover { color: var(--gold); text-decoration: underline; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: .9rem; }
+.footer-base { border-top: 1px solid rgba(222,160,68,.3); margin-top: 34px; padding-top: 18px; font-size: .8rem; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+
+/* ---------- 13. RESPONSIVE ---------- */
+@media (max-width: 1024px) {
+  .map-layout { grid-template-columns: 1fr; }
+  .preview { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 300;
+             border-radius: var(--radius) var(--radius) 0 0; max-height: 78vh; overflow-y: auto; }
+}
+@media (max-width: 860px) {
+  .nav-links { position: fixed; inset: var(--nav-h) 0 auto 0; flex-direction: column;
+               align-items: stretch; background: var(--parchment);
+               border-bottom: 1px solid var(--line); padding: 10px 16px 16px;
+               gap: 4px; box-shadow: var(--shadow); }
+  .nav-links[hidden] { display: none; }
+  .nav-toggle { display: block; margin-left: auto; }
+  .nav-links a, .nav-links button { min-height: 44px; }
+  .toolbar .wrap { gap: 8px; }
+  .arch-frame { border-radius: 130px 130px 12px 12px; }
+}
+@media (max-width: 560px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .footer-base { flex-direction: column; }
+}
+
+/* ---------- 13b. TOUCH TARGETS ----------
+   Apple asks for 44px of room around a control and Android for roughly the
+   same. Anything smaller needs a precision most people do not have while
+   holding a phone one-handed on a moving bus, and the filter pills and the
+   small buttons were landing at 37-42px. Scoped to coarse pointers, so a
+   mouse user keeps the tight printed look — only fingers get the extra
+   room, and only where a finger actually lands. Measured across the ten
+   pages at 360, 375 and 414px wide.
+
+   The links sitting inline inside paragraphs are deliberately left alone.
+   WCAG exempts links in a sentence, and padding them out would disturb the
+   rhythm of the prose to no practical benefit. */
+@media (pointer: coarse) {
+  .btn-sm, .pill, .seg button, .suggestions button,
+  .listen button, .q-opts button, .stop-controls button,
+  .guess-opts button, .page-picker button, .graph-tools button,
+  .nav-toggle, button {
+    min-height: 44px;
+  }
+  .btn-sm { padding-top: 12px; padding-bottom: 12px; }
+  /* .pill declares its padding with !important, so the room has to be
+     claimed the same way; inline-flex keeps the label centred inside it
+     rather than sitting at the top of a stretched box */
+  .pill { display: inline-flex; align-items: center; justify-content: center;
+          min-height: 44px !important; }
+  /* Leaflet ships its zoom control at 26px square. Fine with a mouse,
+     hopeless with a thumb, so it grows on touch only. The doubled class
+     is there to outrank leaflet.css on specificity rather than relying
+     on stylesheet order. */
+  .leaflet-container .leaflet-bar a { min-height: 44px; min-width: 44px;
+                                       line-height: 44px; }
+  /* The grouped page picker's "ON MAP" jump link ships at 19px tall —
+     legible, but a needle to hit one-handed. */
+  .page-group-link { display: inline-flex; align-items: center; min-height: 44px; }
+  /* The accessibility panel's checkboxes are 26px squares. The label is
+     what people actually tap, so the label grows and the box keeps its
+     size rather than turning into a slab. */
+  .a11y-panel label { min-height: 44px; }
+  /* Citation links in the credits box */
+  .credit-box a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* A native file input ignores min-height in Chrome, so the room has to
+     be padded in. It is the "bring your own manuscript scan" control and
+     is the one thing on the page a phone user has to hit precisely. */
+  .upload input[type="file"] { padding-top: 11px; padding-bottom: 11px; }
+  /* Map pins are drawn 30x38 and clusters 40x40, and that artwork should
+     not change — a fatter pin would clutter the map. An invisible ring
+     around each gives the thumb somewhere to land instead. */
+  .leaflet-marker-icon::before {
+    content: ""; position: absolute;
+    left: -7px; top: -3px;
+    width: calc(100% + 14px); height: calc(100% + 6px);
+  }
+}
+
+/* ---------- 14. ACCESSIBILITY MODES ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+
+body.large-text { font-size: 19px; }
+body.large-text h1 { font-size: clamp(2.7rem, 6vw, 4.6rem); }
+
+body.high-contrast {
+  --parchment: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F0F0F0;
+  --ink: #000000;
+  --teal: #003B6F;
+  --line: #000000;
+  --rose: #8A2BE2;
+  --gold: #7A5F0E;
+}
+body.high-contrast .card, body.high-contrast .preview,
+body.high-contrast .map-shell, body.high-contrast .nav { border-width: 2px; }

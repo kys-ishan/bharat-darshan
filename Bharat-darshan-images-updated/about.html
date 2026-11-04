@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About &amp; Architecture — Bharat Darshan</title>
+<meta name="description" content="What Bharat Darshan is, how it is built, who built it, and where every photograph and fact came from." />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#123A2E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/base.css?v=20261102n" />
+<link rel="stylesheet" href="css/pages.css?v=20261102n" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/theme.css?v=20261103" />
+<link rel="stylesheet" href="css/enhancements.css?v=20261104" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 30 34" aria-hidden="true" focusable="false">
+        <path d="M15 1.5c-6.6 0-12 5.2-12 11.7 0 8.4 12 19.3 12 19.3s12-10.9 12-19.3C27 6.7 21.6 1.5 15 1.5Z"
+              fill="none" stroke="#123A2E" stroke-width="2"/>
+        <path d="M9.5 15.5v-2.2a5.5 5.5 0 0 1 11 0v2.2" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <path d="M11.5 15.5h7v4h-7z" fill="#C9A227"/>
+      </svg>
+      <span>
+        <span class="brand-name">Bharat Darshan</span><br />
+        <span class="brand-sub">Heritage Atlas India</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks"
+            data-i18n="nav.menu">Menu</button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="index.html" data-i18n="nav.map">Explore Map</a>
+      <a href="archive.html" data-i18n="nav.archive">Living Archive</a>
+      <a href="stories/index.html" data-i18n="nav.stories">Heritage Stories</a>
+      <a href="journey.html" data-i18n="nav.journey">My Journey</a>
+      <a href="about.html" aria-current="page" data-i18n="nav.about">About</a>
+      <button class="pill" id="langToggle" aria-pressed="false">हिन्दी</button>
+      <button class="pill" id="a11yToggle" aria-expanded="false" aria-controls="a11yPanel"
+              data-i18n="nav.a11y">Accessibility</button>
+    </nav>
+  </div>
+
+  <div class="a11y-panel" id="a11yPanel" hidden role="group" aria-label="Accessibility options">
+    <h4>Display</h4>
+    <label><input type="checkbox" id="optContrast" /> High contrast</label>
+    <label><input type="checkbox" id="optText" /> Larger text</label>
+    <label><input type="checkbox" id="optMotion" /> Reduced motion</label>
+  </div>
+</header>
+
+<section class="page-head" style="--head-img:url('assets/img/humayuns-tomb.jpg')">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html" data-i18n="nav.map">Explore Map</a> / <span data-i18n="nav.about">About</span></p>
+    <span class="kicker" data-i18n="about.kicker">About the project</span>
+    <h1 data-i18n="about.title">How Bharat Darshan works</h1>
+    <p class="sub" data-i18n="about.sub">
+      A small, static website that puts India's heritage sites on a map, tells their story in
+      five stages, and keeps every fact next to the source it came from.
+    </p>
+  </div>
+</section>
+
+<main id="main">
+
+  <!-- ================= WHAT IT IS ================= -->
+  <section class="block" aria-labelledby="whatHead">
+    <div class="wrap">
+      <div class="prose" style="max-width:760px">
+        <h2 id="whatHead" data-i18n="about.whatH">What you can do here</h2>
+        <p data-i18n="about.whatP1">
+          Open the map, filter by region or building type, and click a pin. Each site opens a
+          detail page with its history, quick facts, official UNESCO and Archaeological Survey
+          of India links, and a set of sources you can check yourself.
+        </p>
+        <p data-i18n="about.whatP2">
+          Add up to five stops to a journey and the page works out a rough straight-line
+          distance between them. Earn badges as you explore. Switch the interface to Hindi.
+          None of it needs an account.
+        </p>
+
+        <div class="note" style="margin-top:22px">
+          <b data-i18n="about.ruleT">The rule we followed</b><br />
+          <span data-i18n="about.ruleB">
+            If a feature needed an API key, a login, a paid service, or a file we did not have,
+            it was cut. Everything on this site runs from files in the repository.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEAM ================= -->
+  <section class="block alt" id="team" aria-labelledby="teamHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker" data-i18n="about.teamK">The team</span>
+        <h2 id="teamHead" data-i18n="about.teamH">Three people, three lanes</h2>
+        <p data-i18n="about.teamP">
+          Work was split so no two people were editing the same file at the same time.
+        </p>
+      </div>
+
+      <div class="triple">
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="M3 10h18"/><path d="M7 14h4"/></svg></div>
+          <h3>Person A — Map &amp; website</h3>
+          <p class="muted" style="font-size:.9rem">
+            Site structure, the Leaflet map, clustering, custom pins, filters, search and the
+            journey page.
+          </p>
+          <p class="muted" style="font-size:.85rem;margin-top:10px">
+            <b>TODO:</b> name and contact.
+          </p>
+        </article>
+
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg></div>
+          <h3>Person B — Photos &amp; 360°</h3>
+          <p class="muted" style="font-size:.9rem">
+            Sourcing licensed photographs, downloading the panorama, checking every image
+            actually loads, and keeping the credits accurate.
+          </p>
+          <p class="muted" style="font-size:.85rem;margin-top:10px">
+            <b>TODO:</b> name and contact.
+          </p>
+        </article>
+
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+          <h3>Person C — History &amp; sources</h3>
+          <p class="muted" style="font-size:.9rem">
+            Writing the five-stage stories, verifying UNESCO and ASI facts, collecting museum
+            records, and building the manuscript and audio features.
+          </p>
+          <p class="muted" style="font-size:.85rem;margin-top:10px">
+            <b>TODO:</b> name and contact.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ARCHITECTURE ================= -->
+  <section class="block" id="architecture" aria-labelledby="archHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker" data-i18n="about.archK">Architecture</span>
+        <h2 id="archHead" data-i18n="about.archH">How the pieces fit</h2>
+        <p data-i18n="about.archP">
+          Plain HTML, CSS and JavaScript. No framework, no bundler, no build step — open the
+          file index.html and it runs.
+        </p>
+      </div>
+
+      <div class="a-diagram">
+        <svg viewBox="0 0 900 470" role="img"
+             aria-labelledby="archTitle archDesc" class="a-svg">
+          <title id="archTitle">Bharat Darshan architecture diagram</title>
+          <desc id="archDesc">
+            One data file, js/sites-data.js, feeds six pages. A store module writes to
+            localStorage. Local vendor libraries and local asset folders provide the map,
+            panorama and photographs. An i18n dictionary provides English and Hindi interface
+            text. Nothing on the diagram requires a server.
+          </desc>
+
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5"
+                    markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#5F7040"/>
+            </marker>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5"
+                    markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#C9A227"/>
+            </marker>
+          </defs>
+
+          <!-- column 1: local files -->
+          <text class="a-col" x="30" y="30">LOCAL FILES (in the repository)</text>
+
+          <g class="a-node a-node-src">
+            <rect x="30" y="46" width="240" height="66" rx="8"/>
+            <text x="46" y="72" class="a-t1">js/sites-data.js</text>
+            <text x="46" y="94" class="a-t2">20–30 sites · one source of truth</text>
+          </g>
+
+          <g class="a-node a-node-src">
+            <rect x="30" y="128" width="240" height="66" rx="8"/>
+            <text x="46" y="154" class="a-t1">vendor/ · assets/</text>
+            <text x="46" y="176" class="a-t2">Leaflet, Pannellum, photos, 360°</text>
+          </g>
+
+          <g class="a-node a-node-src">
+            <rect x="30" y="210" width="240" height="66" rx="8"/>
+            <text x="46" y="236" class="a-t1">js/i18n.js</text>
+            <text x="46" y="258" class="a-t2">English + Hindi interface text</text>
+          </g>
+
+          <g class="a-node a-node-src">
+            <rect x="30" y="292" width="240" height="66" rx="8"/>
+            <text x="46" y="318" class="a-t1">js/store.js</text>
+            <text x="46" y="340" class="a-t2">journey · visited · badges · a11y</text>
+          </g>
+
+          <g class="a-node a-node-src">
+            <rect x="30" y="374" width="240" height="66" rx="8"/>
+            <text x="46" y="400" class="a-t1">Browser APIs</text>
+            <text x="46" y="422" class="a-t2">geolocation · speech · clipboard</text>
+          </g>
+
+          <!-- column 2: pages -->
+          <text class="a-col" x="360" y="30">PAGES (static HTML)</text>
+
+          <g class="a-node a-node-page">
+            <rect x="360" y="46" width="230" height="46" rx="8"/>
+            <text x="376" y="74" class="a-t1">index.html — map, filters, search</text>
+          </g>
+          <g class="a-node a-node-page">
+            <rect x="360" y="102" width="230" height="46" rx="8"/>
+            <text x="376" y="130" class="a-t1">monument.html — detail page</text>
+          </g>
+          <g class="a-node a-node-page">
+            <rect x="360" y="158" width="230" height="46" rx="8"/>
+            <text x="376" y="186" class="a-t1">journey.html — route + passport</text>
+          </g>
+          <g class="a-node a-node-page">
+            <rect x="360" y="214" width="230" height="46" rx="8"/>
+            <text x="376" y="242" class="a-t1">stories/ — 360° + manuscripts</text>
+          </g>
+          <g class="a-node a-node-page">
+            <rect x="360" y="270" width="230" height="46" rx="8"/>
+            <text x="376" y="298" class="a-t1">guess.html — visual quiz</text>
+          </g>
+          <g class="a-node a-node-page">
+            <rect x="360" y="326" width="230" height="46" rx="8"/>
+            <text x="376" y="354" class="a-t1">about.html — this page</text>
+          </g>
+
+          <!-- column 3: output -->
+          <text class="a-col" x="670" y="30">RUNS ON</text>
+
+          <g class="a-node a-node-out">
+            <rect x="670" y="46" width="200" height="76" rx="8"/>
+            <text x="686" y="74" class="a-t1">Static host</text>
+            <text x="686" y="96" class="a-t2">GitHub Pages / Netlify</text>
+            <text x="686" y="114" class="a-t2">no server code</text>
+          </g>
+
+          <g class="a-node a-node-out">
+            <rect x="670" y="140" width="200" height="76" rx="8"/>
+            <text x="686" y="168" class="a-t1">Double-click</text>
+            <text x="686" y="190" class="a-t2">file:// open index.html</text>
+            <text x="686" y="208" class="a-t2">works offline</text>
+          </g>
+
+          <g class="a-node a-node-out">
+            <rect x="670" y="234" width="200" height="90" rx="8"/>
+            <text x="686" y="262" class="a-t1">localStorage</text>
+            <text x="686" y="284" class="a-t2">your device only</text>
+            <text x="686" y="302" class="a-t2">never sent anywhere</text>
+          </g>
+
+          <g class="a-node a-node-out">
+            <rect x="670" y="340" width="200" height="76" rx="8"/>
+            <text x="686" y="368" class="a-t1">External links</text>
+            <text x="686" y="390" class="a-t2">UNESCO · ASI · museums</text>
+            <text x="686" y="408" class="a-t2">open in a new tab</text>
+          </g>
+
+          <!-- arrows: data -> pages -->
+          <path class="a-arrow" d="M270 79 L352 70" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M270 161 L352 128" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M270 161 L352 184" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M270 161 L352 240" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M270 161 L352 296" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M270 79 L352 350" marker-end="url(#ar)"/>
+
+          <!-- arrows: i18n + store -> pages -->
+          <path class="a-arrow a-arrow-gold" d="M270 243 L352 92" marker-end="url(#ar2)"/>
+          <path class="a-arrow a-arrow-gold" d="M270 325 L352 200" marker-end="url(#ar2)"/>
+          <path class="a-arrow a-arrow-gold" d="M270 407 L352 320" marker-end="url(#ar2)"/>
+
+          <!-- arrows: pages -> output -->
+          <path class="a-arrow" d="M590 70 L662 84" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M590 186 L662 178" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M590 296 L662 270" marker-end="url(#ar)"/>
+          <path class="a-arrow" d="M590 350 L662 378" marker-end="url(#ar)"/>
+
+          <!-- legend -->
+          <g class="a-legend">
+            <line x1="30" y1="456" x2="60" y2="456" stroke="#5F7040" stroke-width="2" marker-end="url(#ar)"/>
+            <text x="68" y="460" class="a-t2">data flow</text>
+            <line x1="170" y1="456" x2="200" y2="456" stroke="#C9A227" stroke-width="2" marker-end="url(#ar2)"/>
+            <text x="208" y="460" class="a-t2">settings / storage</text>
+            <text x="360" y="460" class="a-t2">No arrows leave this box to a server — there isn't one.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="triple" style="margin-top:26px">
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 9h16"/></svg></div>
+          <h3 data-i18n="about.a1t">One data file</h3>
+          <p data-i18n="about.a1b">Every page reads the same array of sites, so a fact written
+             once appears everywhere and cannot drift apart.</p>
+        </article>
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 4.5-3.4 7.4-8 8-4.6-.6-8-3.5-8-8V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3 data-i18n="about.a2t">No backend</h3>
+          <p data-i18n="about.a2b">There is no server to hack, no keys to leak and no database
+             to break. Your saved journey never leaves the device.</p>
+        </article>
+        <article class="triple-card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+          <h3 data-i18n="about.a3t">Everything local</h3>
+          <p data-i18n="about.a3b">Libraries and images live in the repository, so the site
+             still works when the wifi does not.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CREDITS ================= -->
+  <section class="block alt" id="credits" aria-labelledby="credHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker" data-i18n="about.credK">Provenance</span>
+        <h2 id="credHead" data-i18n="about.credH">Photo credits &amp; licences</h2>
+        <p data-i18n="about.credP">
+          Generated from the data file, so this table always matches what the site actually
+          uses. Every image is downloaded into the assets folder.
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="cred-table" id="credTable">
+          <thead>
+            <tr>
+              <th data-i18n="cred.th1">Site</th>
+              <th data-i18n="cred.th2">Photographer / source</th>
+              <th data-i18n="cred.th3">Licence</th>
+              <th data-i18n="cred.th4">File</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="credit-box" style="margin-top:20px">
+        <b>Manuscript page:</b> Cleveland Museum of Art, <i>Calligraphy of a Quatrain (verso)</i>,
+        accession 2013.342.b, c. 1760 — released under <b>CC0</b>.
+        <a href="https://www.clevelandart.org/art/2013.342.b" target="_blank" rel="noopener noreferrer">Museum record</a>.<br />
+        <b>360° panorama:</b> Arul Prakasam T, CC BY-SA 4.0, Wikimedia Commons.<br />
+        <b>Map tiles:</b> © OpenStreetMap contributors, © CARTO. Rendered by the locally
+        bundled Leaflet library.<br />
+        <b>Fonts:</b> Cormorant Garamond, Inter and Noto Sans Devanagari, loaded from Google
+        Fonts when online. The site falls back to system fonts when offline — no layout breaks.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section class="block" id="sources" aria-labelledby="srcHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker" data-i18n="about.srcK">Verification</span>
+        <h2 id="srcHead" data-i18n="about.srcH">Where the facts came from</h2>
+        <p data-i18n="about.srcP">
+          Each site's detail page lists its own sources. These are the standing references the
+          whole project relies on.
+        </p>
+      </div>
+
+      <ul class="source-list" id="standingSources"></ul>
+
+      <div class="note" style="margin-top:22px">
+        <b data-i18n="about.honestT">What we deliberately did not do</b>
+        <ul style="margin:10px 0 0 18px">
+          <li data-i18n="about.honest1">No invented dates, numbers or quotes. Anything we could
+              not verify is marked “TODO” instead of filled in.</li>
+          <li data-i18n="about.honest2">No invented transcriptions. The Persian verse in the
+              Manuscript Lens is translated by the museum, not by us.</li>
+          <li data-i18n="about.honest3">No UNESCO or ASI claim without a link to the page that
+              makes it.</li>
+          <li data-i18n="about.honest4">No “recommended for you” or “related sites” sections —
+              the map shows what the filters ask for, nothing more.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RUN IT ================= -->
+  <section class="block alt" aria-labelledby="runHead">
+    <div class="wrap">
+      <div class="block-head">
+        <span class="kicker">Setup</span>
+        <h2 id="runHead" data-i18n="about.runH">Run it yourself</h2>
+      </div>
+      <div class="prose" style="max-width:760px">
+        <ol>
+          <li data-i18n="about.run1">Clone or download the repository.</li>
+          <li data-i18n="about.run2">Double-click the file index.html. That is the whole setup —
+              there is nothing to install.</li>
+          <li data-i18n="about.run3">Optional: serve the folder with any static server, for
+              example python -m http.server 8000, then open http://localhost:8000.</li>
+          <li data-i18n="about.run4">To deploy, push the folder to GitHub Pages or drag it into
+              Netlify. No build command.</li>
+        </ol>
+        <p class="muted" data-i18n="about.runNote">
+          Tested in current Chrome, Edge and Firefox on desktop, and in mobile Chrome and Safari.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Bharat Darshan</h4>
+        <p style="font-size:.9rem">A static, offline-friendly heritage atlas. No login, no tracking,
+          no paid APIs — your saved journey stays on this device.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Map</a></li>
+          <li><a href="archive.html">Living Archive</a></li>
+          <li><a href="stories/index.html">Heritage Stories</a></li>
+          <li><a href="journey.html">My Journey</a></li>
+          <li><a href="guess.html">Guess the Monument</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#credits">Photo credits &amp; licences</a></li>
+          <li><a href="#sources">Sources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>Heritage data compiled from UNESCO and Archaeological Survey of India pages.</span>
+      <span>Images from Wikimedia Commons and the Cleveland Museum of Art — see credits.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/sites-data.js?v=20261102n"></script>
+<script src="js/i18n.js?v=20261102n"></script>
+<script src="js/store.js?v=20261102n"></script>
+<script src="js/about.js?v=20261102n"></script>
+<script src="js/enhancements.js?v=20261104"></script>
+</body>
+</html>

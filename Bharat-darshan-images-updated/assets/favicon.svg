@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Bharat Darshan">
+  <rect width="64" height="64" rx="14" fill="#123A2E"/>
+  <path d="M32 9c-11.2 0-20 8.6-20 19.4C12 42.7 32 56 32 56s20-13.3 20-27.6C52 17.6 43.2 9 32 9Z"
+        fill="none" stroke="#E0B45B" stroke-width="3"/>
+  <path d="M22.5 34V29a9.5 9.5 0 0 1 19 0v5" fill="none" stroke="#C9A227" stroke-width="2.6"/>
+  <path d="M26.5 34h11v7h-11z" fill="#C9A227"/>
+  <circle cx="32" cy="16.5" r="1.6" fill="#E0B45B"/>
+</svg>
